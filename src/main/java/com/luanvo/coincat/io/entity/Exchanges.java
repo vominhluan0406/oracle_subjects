@@ -34,6 +34,9 @@ public class Exchanges {
     @Column(name = "\"description\"")
     private String description;
 
+    @Column(name = "\"ex_id\"")
+    private String ex_id;
+
     @Column(name = "\"create_at\"")
     private Date create_at;
 

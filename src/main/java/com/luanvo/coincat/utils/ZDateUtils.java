@@ -47,8 +47,4 @@ public class ZDateUtils {
         return ZDateUtils.getStartOfMonth(month, year) - 1000;
     }
 
-    public static void main(String[] args) {
-        long date = Calendar.getInstance().getTimeInMillis();
-        System.out.println(ZDateUtils.getDateStr(date));
-    }
 }

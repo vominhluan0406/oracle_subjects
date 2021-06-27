@@ -1,7 +1,8 @@
 package com.luanvo.coincat.values;
 
 public enum ErrorContent {
-    CURRENCY_NOT_FOUND("Không tìm thấy currency.");
+    CURRENCY_NOT_FOUND("Không tìm thấy currency."),
+    EXCHANGE_NOT_FOUND("Không tìm thấy exchange.");
 
     private String msg;
 
