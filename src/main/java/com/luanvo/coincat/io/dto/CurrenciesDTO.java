@@ -1,4 +1,4 @@
-package com.luanvo.coincat.dto;
+package com.luanvo.coincat.io.dto;
 
 import lombok.Data;
 

@@ -32,4 +32,12 @@ public class RestResponse {
         rs.put(MESSAGE,message);
         return rs;
     }
+
+    public static JSONObject success(){
+        JSONObject rs = new JSONObject();
+        rs.put(CODE,SUCCESS_CODE);
+        rs.put(DATA,null);
+        rs.put(MESSAGE,MESSAGE_SUCESS);
+        return rs;
+    }
 }

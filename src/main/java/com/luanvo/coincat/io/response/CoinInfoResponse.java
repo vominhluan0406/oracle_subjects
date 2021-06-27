@@ -1,4 +1,4 @@
-package com.luanvo.coincat.response;
+package com.luanvo.coincat.io.response;
 
 import lombok.Data;
 

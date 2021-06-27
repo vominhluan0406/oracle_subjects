@@ -24,7 +24,7 @@ public class CoinRest {
     }
 
 
-    @GetMapping("/get-list")
+    @GetMapping("/get_list")
     public JSONObject getList() {
         logger.info("GET /get-list/");
         return currencyService.getListCurrency();

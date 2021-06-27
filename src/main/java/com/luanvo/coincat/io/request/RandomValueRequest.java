@@ -1,4 +1,4 @@
-package com.luanvo.coincat.request;
+package com.luanvo.coincat.io.request;
 
 import lombok.Data;
 
@@ -9,5 +9,6 @@ public class RandomValueRequest {
     private long end_date;
     private String coin_id;
     private double average;
-
+    private int number_of_multiply;
+    private double market_cap;
 }

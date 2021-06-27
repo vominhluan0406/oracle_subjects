@@ -1,8 +1,8 @@
 package com.luanvo.coincat.service.imp;
 
-import com.luanvo.coincat.entity.Currency;
+import com.luanvo.coincat.io.entity.Currency;
 import com.luanvo.coincat.repository.CurrencyRepository;
-import com.luanvo.coincat.response.CoinInfoResponse;
+import com.luanvo.coincat.io.response.CoinInfoResponse;
 import com.luanvo.coincat.service.CurrencyService;
 import com.luanvo.coincat.values.ErrorContent;
 import com.luanvo.coincat.values.RestResponse;

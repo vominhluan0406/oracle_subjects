@@ -34,12 +34,21 @@ public class ZDateUtils {
         return calendar.getTimeInMillis();
     }
 
+    public static String getDateStr(long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+        calendar.set(Calendar.SECOND,0);
+        return calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
     private static long getEndOfMonth(int month, int year) {
         return ZDateUtils.getStartOfMonth(month, year) - 1000;
     }
 
     public static void main(String[] args) {
-        Calendar calendar = Calendar.getInstance();
-        System.out.println(ZDateUtils.getStartOfMonth(calendar.get(Calendar.MONTH),2020));
+        long date = Calendar.getInstance().getTimeInMillis();
+        System.out.println(ZDateUtils.getDateStr(date));
     }
 }
