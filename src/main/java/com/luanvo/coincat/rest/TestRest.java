@@ -1,6 +1,7 @@
 package com.luanvo.coincat.rest;
 
 import com.luanvo.coincat.service.ExchangeService;
+import com.luanvo.coincat.service.GetDataService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,16 @@ public class TestRest {
     @Autowired
     ExchangeService exchangeService;
 
+    @Autowired
+    GetDataService getDataService;
+
     @GetMapping("/api_exchanges")
     public JSONObject getApiExchanges(@RequestParam("id") String id){
         return exchangeService.getToday(id);
+    }
+
+    @GetMapping("/ohlc")
+    public JSONObject getAPIOHLC(){
+        return getDataService.getCoinOHLC();
     }
 }

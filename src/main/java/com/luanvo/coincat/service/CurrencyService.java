@@ -5,4 +5,5 @@ import org.json.simple.JSONObject;
 public interface CurrencyService {
     JSONObject getListCurrency();
     JSONObject getCurrenyById(String id);
+    JSONObject getCoinRealTime(String id);
 }

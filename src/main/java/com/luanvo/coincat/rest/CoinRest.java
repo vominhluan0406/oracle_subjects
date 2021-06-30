@@ -30,4 +30,10 @@ public class CoinRest {
         return currencyService.getListCurrency();
     }
 
+    @GetMapping("/get_coin_real_time")
+    public JSONObject getCoinRealTime(@RequestParam("id") String id) {
+        logger.info("GET /coin/get_coin_real_time?id=" + id);
+        return currencyService.getCoinRealTime(id);
+    }
+
 }

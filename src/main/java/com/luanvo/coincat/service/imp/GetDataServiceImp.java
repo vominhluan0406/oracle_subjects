@@ -1,6 +1,10 @@
 package com.luanvo.coincat.service.imp;
 
+import com.luanvo.coincat.io.entity.Currency;
+import com.luanvo.coincat.io.entity.CurrencyOHLCHisEntity;
 import com.luanvo.coincat.io.entity.Trending;
+import com.luanvo.coincat.repository.CurrencyOHLCHisRepository;
+import com.luanvo.coincat.repository.CurrencyRepository;
 import com.luanvo.coincat.repository.TrendingRepository;
 import com.luanvo.coincat.service.GetDataService;
 import com.luanvo.coincat.utils.ConvertUtils;
@@ -21,11 +25,23 @@ public class GetDataServiceImp implements GetDataService {
     @Value("${coingecko.trending}")
     private String trending_api;
 
+    @Value("${nomics.api_get_ticker_coin}")
+    private String ticker_coin_api;
+
+    @Value("${coingecko.get_ohlc}")
+    private String coin_ohlc_api;
+
     @Autowired
     RestTemplate restTemplate;
 
     @Autowired
     TrendingRepository trendingRepository;
+
+    @Autowired
+    CurrencyRepository currencyRepository;
+
+    @Autowired
+    CurrencyOHLCHisRepository currencyOHLCHisRepository;
 
     @Override
     public JSONObject getTrending() {
@@ -55,4 +71,44 @@ public class GetDataServiceImp implements GetDataService {
             return RestResponse.error(e.getMessage());
         }
     }
+
+    @Override
+    public JSONObject getTickerDateOfCoin() {
+        try{
+
+            return RestResponse.success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return RestResponse.error(e.getMessage());
+        }
+    }
+
+    @Override
+    public JSONObject getCoinOHLC() {
+        try{
+            List<Currency> currencys = currencyRepository.findAll();
+            long nowDate = ZDateUtils.getTimeNow();
+            currencys.forEach(c->{
+                String api = coin_ohlc_api.replace(":ID",c.getOhlc_id());
+                LinkedHashMap[] dataAPI =  restTemplate.getForObject(api,LinkedHashMap[].class);
+                CurrencyOHLCHisEntity currencyOHLCHisEntity = new CurrencyOHLCHisEntity();
+                currencyOHLCHisEntity.setCoin_id(c.getCryptocontrol_coin_id());
+                currencyOHLCHisEntity.setHigh(ConvertUtils.toDouble(dataAPI[0].get("high")));
+                currencyOHLCHisEntity.setLow(ConvertUtils.toDouble(dataAPI[0].get("low")));
+                currencyOHLCHisEntity.setOpen(ConvertUtils.toDouble(dataAPI[0].get("open")));
+                currencyOHLCHisEntity.setClose(ConvertUtils.toDouble(dataAPI[0].get("close")));
+                currencyOHLCHisEntity.setVolume(ConvertUtils.toDouble(dataAPI[0].get("volume")));
+                currencyOHLCHisEntity.setMarket_cap(ConvertUtils.toDouble(dataAPI[0].get("market_cap")));
+                currencyOHLCHisEntity.setTime(nowDate);
+                currencyOHLCHisRepository.save(currencyOHLCHisEntity);
+            });
+
+            return RestResponse.success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return RestResponse.error(e.getMessage());
+        }
+    }
+
+
 }

@@ -32,4 +32,7 @@ public class Currency {
 
     @Column(name = "\"cryptocontrol_coin_id\"")
     private String cryptocontrol_coin_id;
+
+    @Column(name = "\"ohlc_id\"")
+    private String ohlc_id;
 }
