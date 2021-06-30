@@ -13,4 +13,7 @@ public interface TrendingRepository extends JpaRepository<Trending, Integer> {
 
     @Query(value = "SELECT * FROM \"trending\" WHERE \"date\" >= :today",nativeQuery = true)
     List<Trending> findToday(@Param("today") long today);
+
+    @Query(value = "SELECT * FROM \"trending\" WHERE \"date\" >= :now",nativeQuery = true)
+    List<Trending> findALLLastMonth(@Param("now") long now);
 }

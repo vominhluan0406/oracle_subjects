@@ -8,16 +8,25 @@ import com.luanvo.coincat.values.ErrorContent;
 import com.luanvo.coincat.values.RestResponse;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
 public class ExchangeServiceImp implements ExchangeService {
 
+    @Value("${coingecko.exchanges_date}")
+    private String api_exchanges;
+
     @Autowired
     ExchangesRepository exchangesRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public JSONObject getDetail(String id) {
@@ -44,6 +53,20 @@ public class ExchangeServiceImp implements ExchangeService {
             data.put("data", lsData);
             return RestResponse.success(data);
         } catch (Exception e) {
+            return RestResponse.error(e.getMessage());
+        }
+    }
+
+    @Override
+    public JSONObject getToday(String ex_id) {
+        try{
+            JSONObject data = new JSONObject();
+            LinkedHashMap obj = restTemplate.getForObject(api_exchanges+ex_id,LinkedHashMap.class);
+
+            data.put("data",obj);
+            return RestResponse.success(data);
+        }catch (Exception e){
+            e.printStackTrace();
             return RestResponse.error(e.getMessage());
         }
     }

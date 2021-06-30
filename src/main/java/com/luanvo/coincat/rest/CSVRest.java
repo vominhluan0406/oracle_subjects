@@ -24,4 +24,10 @@ public class CSVRest {
         logger.info("GET /csv/statistic?id=" + request);
         csvService.downloadCSV(request,response);
     }
+
+    @GetMapping("/statistic_trending_last_month")
+    public void exportCSVTrending(HttpServletResponse response) {
+        logger.info("GET /csv/statistic_trending_last_month");
+        csvService.downloadCSVTrending(response);
+    }
 }

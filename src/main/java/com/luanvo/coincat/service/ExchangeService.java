@@ -6,4 +6,6 @@ public interface ExchangeService {
     JSONObject getDetail(String id);
 
     JSONObject getList();
+
+    JSONObject getToday(String ex_id);
 }

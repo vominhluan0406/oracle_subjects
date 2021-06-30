@@ -10,4 +10,6 @@ import java.io.File;
 public interface CSVService {
     JSONObject importDataFromCSV(MultipartFile file,int id);
     JSONObject downloadCSV(DownloadCSVRequest request, HttpServletResponse response);
+
+    void downloadCSVTrending(HttpServletResponse response);
 }

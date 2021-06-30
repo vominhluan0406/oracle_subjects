@@ -16,9 +16,6 @@ public class CrontabService {
 
     private Logger logger = LoggerFactory.getLogger(CrontabService.class);
 
-    @Value("${coingecko.trending}")
-    private String api_trending;
-
     @Autowired
     RestTemplate restTemplate;
 
@@ -26,8 +23,9 @@ public class CrontabService {
     GetDataService getDataService;
 
     @Scheduled(cron = "0 0 0 ? * * ")
-    public void getDateDate() {
+    public void getTrending() {
         try{
+            logger.info("Crontab : getTrending "+new Date());
             getDataService.getTrending();
         }catch (Exception e){
             e.printStackTrace();
