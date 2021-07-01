@@ -8,4 +8,6 @@ public interface ExchangeService {
     JSONObject getList();
 
     JSONObject getToday(String ex_id);
+
+    JSONObject getTickers(String ex_id);
 }

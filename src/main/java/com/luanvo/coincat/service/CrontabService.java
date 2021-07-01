@@ -3,8 +3,10 @@ package com.luanvo.coincat.service;
 import com.luanvo.coincat.config.RestTemplateConfig;
 import com.luanvo.coincat.io.entity.Currency;
 import com.luanvo.coincat.io.entity.CurrencyValueRealTimeEnity;
+import com.luanvo.coincat.io.entity.Exchanges;
 import com.luanvo.coincat.repository.CurrencyRepository;
 import com.luanvo.coincat.repository.CurrencyValueRealTimeRepository;
+import com.luanvo.coincat.repository.ExchangesRepository;
 import com.luanvo.coincat.utils.ConvertUtils;
 import com.luanvo.coincat.utils.ZDateUtils;
 import org.slf4j.Logger;
@@ -34,10 +36,16 @@ public class CrontabService {
     GetDataService getDataService;
 
     @Autowired
+    ExchangeService exchangeService;
+
+    @Autowired
     CurrencyRepository currencyRepository;
 
     @Autowired
     CurrencyValueRealTimeRepository currencyValueRealTimeRepository;
+
+    @Autowired
+    ExchangesRepository exchangesRepository;
 
     @Scheduled(cron = "0 0 0 ? * * ")
     public void getTrending() {
@@ -45,6 +53,10 @@ public class CrontabService {
             logger.info("Crontab : getTrending "+new Date());
             getDataService.getTrending();
             getDataService.getCoinOHLC();
+            List<Exchanges> lsEx = exchangesRepository.findAll();
+            lsEx.forEach(e->{
+                exchangeService.getToday(e.getEx_id());
+            });
         }catch (Exception e){
             e.printStackTrace();
         }

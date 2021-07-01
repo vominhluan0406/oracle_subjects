@@ -32,6 +32,12 @@ public class ExchangeRest {
     @GetMapping("/get_today")
     public JSONObject getList(@RequestParam("id") String ex_id) {
         logger.info("GET /exchange/get_today?id=" + ex_id);
+        return exchangeService.getTickers(ex_id);
+    }
+
+    @GetMapping("/import_data")
+    public JSONObject importData(@RequestParam("id") String ex_id) {
+        logger.info("GET /exchange/get_today?id=" + ex_id);
         return exchangeService.getToday(ex_id);
     }
 }
